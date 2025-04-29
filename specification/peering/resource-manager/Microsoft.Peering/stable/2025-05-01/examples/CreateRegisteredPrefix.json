@@ -3,10 +3,11 @@
     "subscriptionId": "subId",
     "resourceGroupName": "rgName",
     "peeringName": "peeringName",
-    "api-version": "2022-10-01",
+    "api-version": "2025-05-01",
     "registeredPrefix": {
       "properties": {
-        "prefix": "10.22.20.0/24"
+        "prefix": "10.22.20.0/24",
+        "tags": {}
       }
     },
     "registeredPrefixName": "registeredPrefixName"
@@ -18,6 +19,7 @@
           "prefix": "10.22.20.0/24",
           "prefixValidationState": "Verified",
           "peeringServicePrefixKey": "00000000-0000-0000-0000-000000000000",
+          "tags": {},
           "provisioningState": "Succeeded"
         },
         "name": "registeredPrefixName",

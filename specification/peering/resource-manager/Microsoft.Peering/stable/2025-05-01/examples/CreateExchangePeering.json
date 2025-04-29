@@ -3,7 +3,7 @@
     "subscriptionId": "subId",
     "resourceGroupName": "rgName",
     "peeringName": "peeringName",
-    "api-version": "2022-10-01",
+    "api-version": "2025-05-01",
     "peering": {
       "sku": {
         "name": "Basic_Exchange_Free"
@@ -13,6 +13,7 @@
         "exchange": {
           "connections": [
             {
+              "useForPeeringService": false,
               "peeringDBFacilityId": 99999,
               "bgpSession": {
                 "peerSessionIPv4Address": "192.168.2.1",
@@ -21,9 +22,11 @@
                 "maxPrefixesAdvertisedV6": 100,
                 "md5AuthenticationKey": "test-md5-auth-key"
               },
-              "connectionIdentifier": "CE495334-0E94-4E51-8164-8116D6CD284D"
+              "connectionIdentifier": "CE495334-0E94-4E51-8164-8116D6CD284D",
+              "pauseProvision": false
             },
             {
+              "useForPeeringService": false,
               "peeringDBFacilityId": 99999,
               "bgpSession": {
                 "peerSessionIPv4Address": "192.168.2.2",
@@ -32,7 +35,8 @@
                 "maxPrefixesAdvertisedV6": 100,
                 "md5AuthenticationKey": "test-md5-auth-key"
               },
-              "connectionIdentifier": "CDD8E673-CB07-47E6-84DE-3739F778762B"
+              "connectionIdentifier": "CDD8E673-CB07-47E6-84DE-3739F778762B",
+              "pauseProvision": false
             }
           ],
           "peerAsn": {
@@ -58,6 +62,7 @@
           "exchange": {
             "connections": [
               {
+                "useForPeeringService": false,
                 "peeringDBFacilityId": 99999,
                 "connectionState": "ProvisioningFailed",
                 "bgpSession": {
@@ -72,9 +77,11 @@
                   "md5AuthenticationKey": "test-md5-auth-key"
                 },
                 "connectionIdentifier": "CE495334-0E94-4E51-8164-8116D6CD284D",
-                "errorMessage": "IPv4 address is already configured with a different ASN"
+                "errorMessage": "IPv4 address is already configured with a different ASN",
+                "pauseProvision": false
               },
               {
+                "useForPeeringService": false,
                 "peeringDBFacilityId": 99999,
                 "connectionState": "Active",
                 "bgpSession": {
@@ -88,7 +95,8 @@
                   "maxPrefixesAdvertisedV6": 100,
                   "md5AuthenticationKey": "test-md5-auth-key"
                 },
-                "connectionIdentifier": "CDD8E673-CB07-47E6-84DE-3739F778762B"
+                "connectionIdentifier": "CDD8E673-CB07-47E6-84DE-3739F778762B",
+                "pauseProvision": false
               }
             ],
             "peerAsn": {
@@ -117,6 +125,7 @@
           "exchange": {
             "connections": [
               {
+                "useForPeeringService": false,
                 "peeringDBFacilityId": 99999,
                 "connectionState": "PendingApproval",
                 "bgpSession": {
@@ -130,9 +139,11 @@
                   "maxPrefixesAdvertisedV6": 100,
                   "md5AuthenticationKey": "test-md5-auth-key"
                 },
-                "connectionIdentifier": "CE495334-0E94-4E51-8164-8116D6CD284D"
+                "connectionIdentifier": "CE495334-0E94-4E51-8164-8116D6CD284D",
+                "pauseProvision": false
               },
               {
+                "useForPeeringService": false,
                 "peeringDBFacilityId": 99999,
                 "connectionState": "PendingApproval",
                 "bgpSession": {
@@ -146,13 +157,15 @@
                   "maxPrefixesAdvertisedV6": 100,
                   "md5AuthenticationKey": "test-md5-auth-key"
                 },
-                "connectionIdentifier": "CDD8E673-CB07-47E6-84DE-3739F778762B"
+                "connectionIdentifier": "CDD8E673-CB07-47E6-84DE-3739F778762B",
+                "pauseProvision": false
               }
             ],
             "peerAsn": {
               "id": "/subscriptions/subId/providers/Microsoft.Peering/peerAsns/myAsn1"
             }
           },
+          "connectivityProbes": [],
           "peeringLocation": "peeringLocation0",
           "provisioningState": "Succeeded"
         },

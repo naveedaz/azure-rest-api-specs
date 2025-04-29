@@ -3,7 +3,7 @@
     "subscriptionId": "subId",
     "resourceGroupName": "rgName",
     "peeringName": "peeringName",
-    "api-version": "2022-10-01",
+    "api-version": "2025-05-01",
     "peering": {
       "sku": {
         "name": "Premium_Direct_Free"
@@ -14,8 +14,10 @@
           "connections": [
             {
               "bandwidthInMbps": 10000,
+              "portSpeed": 0,
               "sessionAddressProvider": "Peer",
               "useForPeeringService": true,
+              "is400GPortMigration": false,
               "peeringDBFacilityId": 99999,
               "bgpSession": {
                 "sessionPrefixV4": "192.168.0.0/24",
@@ -24,7 +26,8 @@
                 "maxPrefixesAdvertisedV4": 1000,
                 "maxPrefixesAdvertisedV6": 100
               },
-              "connectionIdentifier": "5F4CB5C7-6B43-4444-9338-9ABC72606C16"
+              "connectionIdentifier": "5F4CB5C7-6B43-4444-9338-9ABC72606C16",
+              "pauseProvision": false
             }
           ],
           "peerAsn": {
@@ -53,8 +56,10 @@
               {
                 "bandwidthInMbps": 10000,
                 "provisionedBandwidthInMbps": 10000,
+                "portSpeed": 0,
                 "sessionAddressProvider": "Peer",
                 "useForPeeringService": true,
+                "is400GPortMigration": false,
                 "peeringDBFacilityId": 99999,
                 "connectionState": "Active",
                 "bgpSession": {
@@ -66,7 +71,8 @@
                   "maxPrefixesAdvertisedV4": 1000,
                   "maxPrefixesAdvertisedV6": 100
                 },
-                "connectionIdentifier": "5F4CB5C7-6B43-4444-9338-9ABC72606C16"
+                "connectionIdentifier": "5F4CB5C7-6B43-4444-9338-9ABC72606C16",
+                "pauseProvision": false
               }
             ],
             "useForPeeringService": true,
@@ -99,8 +105,10 @@
               {
                 "bandwidthInMbps": 10000,
                 "provisionedBandwidthInMbps": 0,
+                "portSpeed": 0,
                 "sessionAddressProvider": "Peer",
                 "useForPeeringService": true,
+                "is400GPortMigration": false,
                 "peeringDBFacilityId": 99999,
                 "connectionState": "PendingApproval",
                 "bgpSession": {
@@ -112,7 +120,8 @@
                   "maxPrefixesAdvertisedV4": 1000,
                   "maxPrefixesAdvertisedV6": 100
                 },
-                "connectionIdentifier": "5F4CB5C7-6B43-4444-9338-9ABC72606C16"
+                "connectionIdentifier": "5F4CB5C7-6B43-4444-9338-9ABC72606C16",
+                "pauseProvision": false
               }
             ],
             "useForPeeringService": true,
@@ -121,6 +130,7 @@
             },
             "directPeeringType": "IxRs"
           },
+          "connectivityProbes": [],
           "peeringLocation": "peeringLocation0",
           "provisioningState": "Succeeded"
         },

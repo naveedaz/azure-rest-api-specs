@@ -3,7 +3,7 @@
     "subscriptionId": "subId",
     "resourceGroupName": "rgName",
     "peeringName": "peeringName",
-    "api-version": "2022-10-01",
+    "api-version": "2025-05-01",
     "peering": {
       "sku": {
         "name": "Basic_Direct_Free"
@@ -14,8 +14,10 @@
           "connections": [
             {
               "bandwidthInMbps": 10000,
+              "portSpeed": 0,
               "sessionAddressProvider": "Peer",
               "useForPeeringService": false,
+              "is400GPortMigration": false,
               "peeringDBFacilityId": 99999,
               "bgpSession": {
                 "sessionPrefixV4": "192.168.0.0/31",
@@ -24,14 +26,18 @@
                 "maxPrefixesAdvertisedV6": 100,
                 "md5AuthenticationKey": "test-md5-auth-key"
               },
-              "connectionIdentifier": "5F4CB5C7-6B43-4444-9338-9ABC72606C16"
+              "connectionIdentifier": "5F4CB5C7-6B43-4444-9338-9ABC72606C16",
+              "pauseProvision": false
             },
             {
               "bandwidthInMbps": 10000,
+              "portSpeed": 0,
               "sessionAddressProvider": "Microsoft",
               "useForPeeringService": true,
+              "is400GPortMigration": false,
               "peeringDBFacilityId": 99999,
-              "connectionIdentifier": "8AB00818-D533-4504-A25A-03A17F61201C"
+              "connectionIdentifier": "8AB00818-D533-4504-A25A-03A17F61201C",
+              "pauseProvision": false
             }
           ],
           "peerAsn": {
@@ -60,8 +66,10 @@
               {
                 "bandwidthInMbps": 10000,
                 "provisionedBandwidthInMbps": 10000,
+                "portSpeed": 0,
                 "sessionAddressProvider": "Peer",
                 "useForPeeringService": false,
+                "is400GPortMigration": false,
                 "microsoftTrackingId": "test-microsoft-reference-id-1",
                 "peeringDBFacilityId": 99999,
                 "connectionState": "ProvisioningFailed",
@@ -75,13 +83,16 @@
                   "md5AuthenticationKey": "test-md5-auth-key"
                 },
                 "connectionIdentifier": "5F4CB5C7-6B43-4444-9338-9ABC72606C16",
-                "errorMessage": "IPv4 address is already configured with a different ASN"
+                "errorMessage": "IPv4 address is already configured with a different ASN",
+                "pauseProvision": false
               },
               {
                 "bandwidthInMbps": 10000,
                 "provisionedBandwidthInMbps": 10000,
+                "portSpeed": 0,
                 "sessionAddressProvider": "Microsoft",
                 "useForPeeringService": true,
+                "is400GPortMigration": false,
                 "microsoftTrackingId": "test-microsoft-reference-id-2",
                 "peeringDBFacilityId": 99999,
                 "connectionState": "Active",
@@ -94,7 +105,8 @@
                   "maxPrefixesAdvertisedV6": 100,
                   "md5AuthenticationKey": "test-md5-auth-key"
                 },
-                "connectionIdentifier": "8AB00818-D533-4504-A25A-03A17F61201C"
+                "connectionIdentifier": "8AB00818-D533-4504-A25A-03A17F61201C",
+                "pauseProvision": false
               }
             ],
             "useForPeeringService": true,
@@ -127,8 +139,10 @@
               {
                 "bandwidthInMbps": 10000,
                 "provisionedBandwidthInMbps": 0,
+                "portSpeed": 0,
                 "sessionAddressProvider": "Peer",
                 "useForPeeringService": false,
+                "is400GPortMigration": false,
                 "microsoftTrackingId": "test-microsoft-reference-id-1",
                 "peeringDBFacilityId": 99999,
                 "connectionState": "PendingApproval",
@@ -141,17 +155,21 @@
                   "maxPrefixesAdvertisedV6": 100,
                   "md5AuthenticationKey": "test-md5-auth-key"
                 },
-                "connectionIdentifier": "5F4CB5C7-6B43-4444-9338-9ABC72606C16"
+                "connectionIdentifier": "5F4CB5C7-6B43-4444-9338-9ABC72606C16",
+                "pauseProvision": false
               },
               {
                 "bandwidthInMbps": 10000,
                 "provisionedBandwidthInMbps": 0,
+                "portSpeed": 0,
                 "sessionAddressProvider": "Microsoft",
                 "useForPeeringService": true,
+                "is400GPortMigration": false,
                 "microsoftTrackingId": "test-microsoft-reference-id-2",
                 "peeringDBFacilityId": 99999,
                 "connectionState": "PendingApproval",
-                "connectionIdentifier": "8AB00818-D533-4504-A25A-03A17F61201C"
+                "connectionIdentifier": "8AB00818-D533-4504-A25A-03A17F61201C",
+                "pauseProvision": false
               }
             ],
             "useForPeeringService": true,
@@ -160,6 +178,7 @@
             },
             "directPeeringType": "Edge"
           },
+          "connectivityProbes": [],
           "peeringLocation": "peeringLocation0",
           "provisioningState": "Succeeded"
         },

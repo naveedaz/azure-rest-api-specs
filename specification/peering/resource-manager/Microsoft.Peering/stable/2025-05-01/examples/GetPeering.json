@@ -3,7 +3,7 @@
     "subscriptionId": "subId",
     "resourceGroupName": "rgName",
     "peeringName": "peeringName",
-    "api-version": "2022-10-01"
+    "api-version": "2025-05-01"
   },
   "responses": {
     "200": {
@@ -19,6 +19,7 @@
           "exchange": {
             "connections": [
               {
+                "useForPeeringService": false,
                 "peeringDBFacilityId": 99999,
                 "connectionState": "Active",
                 "bgpSession": {
@@ -32,9 +33,11 @@
                   "maxPrefixesAdvertisedV6": 100,
                   "md5AuthenticationKey": "test-md5-auth-key"
                 },
-                "connectionIdentifier": "CE495334-0E94-4E51-8164-8116D6CD284D"
+                "connectionIdentifier": "CE495334-0E94-4E51-8164-8116D6CD284D",
+                "pauseProvision": false
               },
               {
+                "useForPeeringService": false,
                 "peeringDBFacilityId": 99999,
                 "connectionState": "Active",
                 "bgpSession": {
@@ -48,7 +51,8 @@
                   "maxPrefixesAdvertisedV6": 100,
                   "md5AuthenticationKey": "test-md5-auth-key"
                 },
-                "connectionIdentifier": "CDD8E673-CB07-47E6-84DE-3739F778762B"
+                "connectionIdentifier": "CDD8E673-CB07-47E6-84DE-3739F778762B",
+                "pauseProvision": false
               }
             ],
             "peerAsn": {
