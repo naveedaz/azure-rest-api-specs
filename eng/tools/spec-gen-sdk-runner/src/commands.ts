@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { runSpecGenSdkCommand, resetGitRepo } from "./utils.js";
 import { LogLevel, logMessage, vsoAddAttachment, vsoLogIssue } from "./log.js";
-import { SpecGenSdkArtifactInfo, SpecGenSdkCmdInput } from "./types.js";
+import { SpecGenSdkCmdInput } from "./types.js";
 import { detectChangedSpecConfigFiles } from "./change-files.js";
 import {
   generateArtifact,
@@ -13,7 +13,7 @@ import {
   parseArguments,
   prepareSpecGenSdkCommand,
   setPipelineVariables,
-} from "./commandUtils.js";
+} from "./command-helpers.js";
 
 /**
  * Generate SDK for a single spec.
@@ -75,15 +75,18 @@ export async function generateSdkForSpecPr(): Promise<number> {
   const specGenSdkCommand = prepareSpecGenSdkCommand(commandInput);
   // Get the spec paths from the changed files
   const changedSpecs = detectChangedSpecConfigFiles(commandInput);
-  let managementPlaneSpecType = false;
-  let dataPlaneSpecType = false;
 
   let statusCode = 0;
   let pushedSpecConfigCount;
-  let shouldLabelBreakingChange = false;
   let breakingChangeLabel = "";
   let executionReport;
   let changedSpecPathText = "";
+  let hasManagementPlaneSpecs = false;
+  let overallRunHasBreakingChange = false;
+  let currentRunHasBreakingChange = false;
+  let overallExecutionResult = "";
+  let currentExecutionResult = "";
+
   for (const changedSpec of changedSpecs) {
     if (!changedSpec.typespecProject && !changedSpec.readmeMd) {
       logMessage("Runner: no spec config file found in the changed files", LogLevel.Warn);
@@ -96,9 +99,7 @@ export async function generateSdkForSpecPr(): Promise<number> {
       changedSpecPathText = changedSpec.typespecProject;
       pushedSpecConfigCount++;
       if (changedSpec.typespecProject.includes(".Management")) {
-        managementPlaneSpecType = true;
-      } else {
-        dataPlaneSpecType = true;
+        hasManagementPlaneSpecs = true;
       }
     }
     if (changedSpec.readmeMd) {
@@ -106,9 +107,7 @@ export async function generateSdkForSpecPr(): Promise<number> {
       changedSpecPathText = changedSpecPathText + " " + changedSpec.readmeMd;
       pushedSpecConfigCount++;
       if (changedSpec.readmeMd.includes("resource-manager")) {
-        managementPlaneSpecType = true;
-      } else if (changedSpec.readmeMd.includes("data-plane")) {
-        dataPlaneSpecType = true;
+        hasManagementPlaneSpecs = true;
       }
     }
     logMessage(`Generating SDK from ${changedSpecPathText}`, LogLevel.Group);
@@ -128,29 +127,31 @@ export async function generateSdkForSpecPr(): Promise<number> {
     }
 
     try {
-      // Read the execution report to determine if the generation was successful
+      // Read the execution report to aggreate the generation results
       executionReport = getExecutionReport(commandInput);
-      const executionResult = executionReport.executionResult;
-      [shouldLabelBreakingChange, breakingChangeLabel] = getBreakingChangeInfo(executionReport);
-      logMessage(`Runner command execution result:${executionResult}`);
+      currentExecutionResult = executionReport.executionResult;
+      if (overallExecutionResult !== "failed") {
+        overallExecutionResult = currentExecutionResult;
+      }
+      [currentRunHasBreakingChange, breakingChangeLabel] = getBreakingChangeInfo(executionReport);
+      overallRunHasBreakingChange = overallRunHasBreakingChange || currentRunHasBreakingChange;
+      logMessage(`Runner command execution result:${currentExecutionResult}`);
     } catch (error) {
       logMessage(`Runner: error reading execution-report.json:${error}`, LogLevel.Error);
       statusCode = 1;
+      overallExecutionResult = "failed";
     }
     logMessage("ending group logging", LogLevel.EndGroup);
     logIssuesToPipeline(executionReport?.vsoLogPath, changedSpecPathText);
   }
   // Process the spec-gen-sdk artifacts
-  const specGenSdkArtifactInfo: SpecGenSdkArtifactInfo = {
-    managementPlane: managementPlaneSpecType,
-    dataPlane: dataPlaneSpecType,
-  };
   statusCode =
     generateArtifact(
       commandInput,
-      specGenSdkArtifactInfo,
-      shouldLabelBreakingChange,
+      overallExecutionResult,
       breakingChangeLabel,
+      overallRunHasBreakingChange,
+      hasManagementPlaneSpecs,
     ) || statusCode;
   return statusCode;
 }
