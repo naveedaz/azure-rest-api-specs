@@ -14,10 +14,8 @@
           "connections": [
             {
               "bandwidthInMbps": 10000,
-              "portSpeed": 0,
               "sessionAddressProvider": "Peer",
               "useForPeeringService": true,
-              "is400GPortMigration": false,
               "peeringDBFacilityId": 99999,
               "bgpSession": {
                 "sessionPrefixV4": "192.168.0.0/24",
@@ -26,8 +24,7 @@
                 "maxPrefixesAdvertisedV4": 1000,
                 "maxPrefixesAdvertisedV6": 100
               },
-              "connectionIdentifier": "5F4CB5C7-6B43-4444-9338-9ABC72606C16",
-              "pauseProvision": false
+              "connectionIdentifier": "5F4CB5C7-6B43-4444-9338-9ABC72606C16"
             }
           ],
           "peerAsn": {
@@ -56,10 +53,8 @@
               {
                 "bandwidthInMbps": 10000,
                 "provisionedBandwidthInMbps": 10000,
-                "portSpeed": 0,
                 "sessionAddressProvider": "Peer",
                 "useForPeeringService": true,
-                "is400GPortMigration": false,
                 "peeringDBFacilityId": 99999,
                 "connectionState": "Active",
                 "bgpSession": {
@@ -71,8 +66,7 @@
                   "maxPrefixesAdvertisedV4": 1000,
                   "maxPrefixesAdvertisedV6": 100
                 },
-                "connectionIdentifier": "5F4CB5C7-6B43-4444-9338-9ABC72606C16",
-                "pauseProvision": false
+                "connectionIdentifier": "5F4CB5C7-6B43-4444-9338-9ABC72606C16"
               }
             ],
             "useForPeeringService": true,
@@ -105,10 +99,8 @@
               {
                 "bandwidthInMbps": 10000,
                 "provisionedBandwidthInMbps": 0,
-                "portSpeed": 0,
                 "sessionAddressProvider": "Peer",
                 "useForPeeringService": true,
-                "is400GPortMigration": false,
                 "peeringDBFacilityId": 99999,
                 "connectionState": "PendingApproval",
                 "bgpSession": {
@@ -120,8 +112,7 @@
                   "maxPrefixesAdvertisedV4": 1000,
                   "maxPrefixesAdvertisedV6": 100
                 },
-                "connectionIdentifier": "5F4CB5C7-6B43-4444-9338-9ABC72606C16",
-                "pauseProvision": false
+                "connectionIdentifier": "5F4CB5C7-6B43-4444-9338-9ABC72606C16"
               }
             ],
             "useForPeeringService": true,
