@@ -238,3 +238,50 @@ function Save-PackageProperties ($repoRoot, $serviceNames, $outputDirectory) {
     & $scriptPath -ServiceDirectory $serviceDirectory.Trim() -OutDirectory $outputDirectory
   }
 }
+
+function Create-API-Review {
+  param (
+    [string]$apiviewEndpoint = "https://apiview.dev/PullRequest/DetectAPIChanges",
+    [string]$specGenSDKArtifactPath,
+    [string]$apiviewArtifactName,
+    [string]$buildId,
+    [string]$commitish,
+    [string]$repoName,
+    [string]$pullRequestNumber
+  )
+  . ${PSScriptRoot}\..\logging.ps1
+  $specGenSDKContent = Get-Content -Path $SpecGenSDKArtifactPath -Raw | ConvertFrom-Json
+  $language = ($specGenSDKContent.language -split "-")[-1]
+  
+  foreach ($requestData in $specGenSDKContent.apiViewRequestData) {
+    $requestUri = [System.UriBuilder]$apiviewEndpoint
+    $requestParam = [System.Web.HttpUtility]::ParseQueryString('')
+    $requestParam.Add('artifactName', $apiviewArtifactName)
+    $requestParam.Add('buildId', $buildId)
+    $requestParam.Add('commitSha', $commitish)
+    $requestParam.Add('repoName', $repoName)
+    $requestParam.Add('pullRequestNumber', $pullRequestNumber)
+    $requestParam.Add('packageName', $requestData.packageName)
+    $requestParam.Add('filePath', $requestData.filePath)
+    $requestParam.Add('language', $language)
+    $requestUri.query = $requestParam.toString()
+    LogInfo "Request URI: $($requestUri.Uri.OriginalString)"
+
+    try
+    {
+      $response = Invoke-WebRequest -Method 'GET' -Uri $requestUri.Uri -MaximumRetryCount 3
+      if ($response.StatusCode -gt 200) {
+        LogSuccess "API review request created successfully.`n$($response.StatusCode)`n$($response.Content)"
+      }
+      else {
+        LogError "Failed to create API review request. $($response)"
+        exit 1
+      }
+    }
+    catch
+    {
+      LogError "Error : $($_.Exception)"
+      exit 1
+    }
+  }
+}
